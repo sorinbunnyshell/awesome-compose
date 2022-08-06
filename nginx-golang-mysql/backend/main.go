@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -16,11 +15,7 @@ import (
 )
 
 func connect() (*sql.DB, error) {
-	bin, err := os.Getenv("MARIADB_ROOT_PASSWORD")
-	if err != nil {
-		return nil, err
-	}
-	return sql.Open("mysql", fmt.Sprintf("root:%s@tcp(db:3306)/%s", string(bin), os.Getenv("MYSQL_DATABASE")))
+	return sql.Open("mysql", fmt.Sprintf("root:%s@tcp(db:3306)/%s", os.Getenv("MARIADB_ROOT_PASSWORD"), os.Getenv("MYSQL_DATABASE")))
 }
 
 func blogHandler(w http.ResponseWriter, r *http.Request) {
