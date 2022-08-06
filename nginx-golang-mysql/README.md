@@ -9,9 +9,8 @@ Project structure:
 │   ├── go.mod
 │   ├── go.sum
 │   └── main.go
-├── db
-│   └── password.txt
 ├── proxy
+│   ├── Dockerfile 
 │   └── nginx.conf
 ├── compose.yaml
 └── README.md

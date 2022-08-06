@@ -8,9 +8,6 @@ services:
       - MARIADB_ROOT_PASSWORD=need-to-replace
     expose:
       - 8000
-    depends_on:
-      db:
-        condition: service_healthy
 
   db:
     # We use a mariadb image which supports both amd64 & arm64 architecture
@@ -19,11 +16,6 @@ services:
     #image: mysql:8
     command: '--default-authentication-plugin=mysql_native_password'
     restart: always
-    healthcheck:
-      test: ['CMD-SHELL', 'mysqladmin ping -h 127.0.0.1 --password="$MARIADB_ROOT_PASSWORD" --silent']
-      interval: 3s
-      retries: 5
-      start_period: 30s
     volumes:
       - db-data:/var/lib/mysql
     environment:
@@ -37,8 +29,6 @@ services:
       context: proxy
     ports:
       - 80:80
-    depends_on: 
-      - backend
 
 volumes:
   db-data:
