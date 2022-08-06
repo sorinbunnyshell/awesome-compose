@@ -5,8 +5,8 @@ services:
       target: dev-envs
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    secrets:
-      - db-password
+    environment:
+      - MARIADB_ROOT_PASSWORD=need-to-replace
     depends_on:
       db:
         condition: service_healthy
@@ -20,13 +20,11 @@ services:
       interval: 3s
       retries: 5
       start_period: 30s
-    secrets:
-      - db-password
     volumes:
       - db-data:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=example
-      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db-password
+      - MARIADB_ROOT_PASSWORD=need-to-replace
     expose:
       - 3306
 
@@ -44,7 +42,3 @@ services:
 
 volumes:
   db-data:
-
-secrets:
-  db-password:
-    file: db/password.txt
