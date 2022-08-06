@@ -6,6 +6,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
+      - MYSQL_DATABASE=example
       - MARIADB_ROOT_PASSWORD=need-to-replace
     depends_on:
       db:
