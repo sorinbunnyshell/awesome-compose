@@ -5,9 +5,6 @@ services:
       target: dev-envs
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    depends_on:
-      db:
-        condition: service_healthy
 
   db:
     image: mariadb:10-focal
