@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -16,11 +15,7 @@ import (
 )
 
 func connect() (*sql.DB, error) {
-	bin, err := ioutil.ReadFile("/run/secrets/db-password")
-	if err != nil {
-		return nil, err
-	}
-	return sql.Open("postgres", fmt.Sprintf("postgres://postgres:%s@db:5432/example?sslmode=disable", string(bin)))
+	return sql.Open("postgres", fmt.Sprintf("postgres://postgres:%s@db:5432/%s?sslmode=disable", os.Getenv("POSTGRES_PASSWORD"), os.Getenv("POSTGRES_DB")))
 }
 
 func blogHandler(w http.ResponseWriter, r *http.Request) {
