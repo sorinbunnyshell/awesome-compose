@@ -6,6 +6,7 @@ services:
     environment:
       - MYSQL_DATABASE=example
       - MARIADB_ROOT_PASSWORD=need-to-replace
+    expose: 80
     depends_on:
       db:
         condition: service_healthy
